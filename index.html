@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обратная связь</title>
+	
+	<script src="js/lib/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body ng-app="TabachkovResume"><!-- 
+
+	<div class="main" ng-controller="MainController">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-sm-offset-7">
+            <h1>{{ fiveDay.city_name }}</h1>
+            <h2>5-day forecast</h2>
+            <div class="forecast" ng-repeat="day in fiveDay.days">
+              <div class="day row">
+                <div class="weekday col-md-4">
+                  <p>{{ day.datetime | date }}</p>
+                </div>
+                <div class="weather col-md-3">
+                  <img ng-src="{{ day.icon }}">
+                </div>
+                <div class="weather col-md-1">
+                </div>
+                <div class="high col-md-2">
+                  <p>{{ day.high }}&deg;</p>
+                </div>
+                <div class="low col-md-2">
+                  <p>{{ day.low }}&deg;</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </ul>
+      </div>
+    </div> -->
+	
+
+
+<p>ПРИВЕТ</p>
+<div class="main" ng-controller="MainController">
+	<h1>{{ questions.title }}</h1>
+</div>
+
+
+
+	<!-- Modules -->
+    <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/MainController.js"></script>
+
+    <!-- Services -->
+    <script src="js/services/resume.js"></script>
+
+    <!-- Directives -->
+
+</body>
+</html>
