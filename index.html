@@ -3,58 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Обратная связь</title>
-	
+	<link href="css/main.css" rel="stylesheet" />
 	<script src="js/lib/angular.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
-<body ng-app="TabachkovResume"><!-- 
+<body ng-app="TabachkovResume">
 
-	<div class="main" ng-controller="MainController">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-5 col-sm-offset-7">
-            <h1>{{ fiveDay.city_name }}</h1>
-            <h2>5-day forecast</h2>
-            <div class="forecast" ng-repeat="day in fiveDay.days">
-              <div class="day row">
-                <div class="weekday col-md-4">
-                  <p>{{ day.datetime | date }}</p>
-                </div>
-                <div class="weather col-md-3">
-                  <img ng-src="{{ day.icon }}">
-                </div>
-                <div class="weather col-md-1">
-                </div>
-                <div class="high col-md-2">
-                  <p>{{ day.high }}&deg;</p>
-                </div>
-                <div class="low col-md-2">
-                  <p>{{ day.low }}&deg;</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </ul>
-      </div>
-    </div> -->
-	
-
-
-<p>ПРИВЕТ</p>
-<div class="main" ng-controller="MainController">
-	<h1>{{ dataFromJson.title }}</h1>
-	<div ng-repeat="question in questions">
-		<div class="question-title"> {{ question.title }} </div>
-		<div class="question-subtitle"> {{ question.subtitle }} </div>
-		<div class="question-answers-type"> {{ question.answers_type }} </div>
-		<div class="question-answers"> {{ question.answers }} </div>
-		<div class="question-comment"> {{ question.comment }} </div>
-		<div class="question-order"> {{ question.order }} </div>
+<!-- <div class="main" ng-controller="MainController">
+	<div class="header-wrapper">	
+		<div class="header">
+			<h1>{{ dataFromJson.title }}</h1>
+		</div>
 	</div>
-</div>
-
+	
+</div> -->
+<div class="container" ng-controller="MainController">
+		<div class="header">
+			<div class="title">{{ dataFromJson.title }}</div>
+			
+		</div>
+		<div class="wrapper">
+			<div class="question-block" ng-repeat="question in questions">
+				<div class="question-title"> {{ question.title }} </div>
+				<div class="question-subtitle"> {{ question.subtitle }} </div>
+				<div class="question-answers-type"> {{ question.answers_type }} </div>
+				<div class="question-answers"> {{ question.answers }} </div>
+				<div class="question-comment"> {{ question.comment }} </div>
+				<div class="question-order"> {{ question.order }} </div>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- Modules -->

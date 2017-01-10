@@ -1,19 +1,25 @@
 app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
   resume.then(function(data) {
     $scope.dataFromJson = data;
-	$scope.questions = data.values;
-/* 	for (var prop in $scope.questions) {
-		console.log("obj." + prop + " = " + obj[prop]);
-	} */
 	
+	var questionsArr = [];
 	
-	$scope.questions.sort(compareAge);
+ 	for (var prop in data.values) {
+		questionsArr[prop] = data.values[prop];
+	} 
 	
+	questionsArr.sort(function(a, b) {
+		return parseFloat(a.order) - parseFloat(b.order);
+	});
+		
+	
+	console.log(questionsArr);
+	console.log(data.values);
+	
+	var obj = {};
+	$.extend(obj, questionsArr);
+	
+	$scope.questions = obj;
 	console.log($scope.questions);
   });
-  
-    function compareAge(personA, personB) {
-		return personA.order - personB.order;
-	}
-  
 }]);
