@@ -44,7 +44,15 @@
 
 <p>ПРИВЕТ</p>
 <div class="main" ng-controller="MainController">
-	<h1>{{ questions.title }}</h1>
+	<h1>{{ dataFromJson.title }}</h1>
+	<div ng-repeat="question in questions">
+		<div class="question-title"> {{ question.title }} </div>
+		<div class="question-subtitle"> {{ question.subtitle }} </div>
+		<div class="question-answers-type"> {{ question.answers_type }} </div>
+		<div class="question-answers"> {{ question.answers }} </div>
+		<div class="question-comment"> {{ question.comment }} </div>
+		<div class="question-order"> {{ question.order }} </div>
+	</div>
 </div>
 
 

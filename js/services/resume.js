@@ -3,7 +3,6 @@ app.factory('resume', ['$http', function($http) {
             .then(function (response) {
 				var data = response.data;
 
-				console.log(data);
 				return data;
 			});
 }]);
