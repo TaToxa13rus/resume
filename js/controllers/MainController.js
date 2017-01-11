@@ -1,25 +1,148 @@
 app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
   resume.then(function(data) {
     $scope.dataFromJson = data;
-	
-	var questionsArr = [];
-	
- 	for (var prop in data.values) {
-		questionsArr[prop] = data.values[prop];
-	} 
-	
-	questionsArr.sort(function(a, b) {
-		return parseFloat(a.order) - parseFloat(b.order);
-	});
-		
-	
-	console.log(questionsArr);
-	console.log(data.values);
-	
-	var obj = {};
-	$.extend(obj, questionsArr);
-	
-	$scope.questions = obj;
-	console.log($scope.questions);
+	$scope.questions = data.values;	
   });
+  
+    $scope.checkData = function() {		
+		var qArr = [];
+		var prop;
+		//чекбокс
+		var resultsOfCheckBoxValidation = [];
+		var resultsOfCheckBoxValidationBool = true;
+		//радио
+		var resultsOfRadioBoxValidation = [];
+		var resultsOfRadioBoxValidationBool = true;
+		//textarea
+		var resultsOfTextAreaValidation = [];
+		var resultsOfTextAreaValidationBool = true;
+		//not-slider
+		var resultsOfNotSliderValidation = [];
+		var resultsOfNotSliderValidationBool = true;
+		
+		var arrayWithAnswers = [];
+
+		for (prop in $scope.questions) {
+			qArr[prop] = $scope.questions[prop];
+			//checkboxes
+			if (qArr[prop].answers_type == "0") 
+			{ 
+				resultsOfCheckBoxValidation[prop] = $("input[name='" + qArr[prop].subtitle + "']:checked").length;
+				var obj = new Object();
+				obj.subtitle = qArr[prop].subtitle;
+				obj.reference = prop;
+				var checkboxAnswers = [];
+				$("input[name='" + qArr[prop].subtitle + "']:checked").each(function() 
+				{				   
+				   checkboxAnswers.push(this.value);
+				});
+				obj.value = checkboxAnswers;
+				
+				arrayWithAnswers.push(obj);
+			}
+			//radioboxes
+			if (qArr[prop].answers_type == "1")
+			{ 
+				resultsOfRadioBoxValidation[prop] = $("input[name='" + qArr[prop].subtitle + "']:checked").length;
+				var obj = new Object();
+				obj.subtitle = qArr[prop].subtitle;
+				obj.reference = prop;
+				var radioboxAnswers;
+				$("input[name='" + qArr[prop].subtitle + "']:checked").each(function() 
+				{
+				   radioboxAnswers = this.value;
+				});
+				obj.value = radioboxAnswers;
+				
+				arrayWithAnswers.push(obj);
+			}
+			//select
+			if (qArr[prop].answers_type == "2")
+			{ 
+				var obj = new Object();
+				obj.subtitle = qArr[prop].subtitle;
+				obj.reference = prop;
+				
+				obj.value = $("select[name='" + qArr[prop].subtitle + "']").val();
+				
+				arrayWithAnswers.push(obj);
+			}
+			//textarea
+			if (qArr[prop].answers_type == "3") 
+			{ 
+				resultsOfTextAreaValidation[prop] = $("textarea[name='" + qArr[prop].subtitle + "']").val();
+				var obj = new Object();
+				obj.subtitle = qArr[prop].subtitle;
+				obj.reference = prop;
+				
+				obj.value = resultsOfTextAreaValidation[prop];
+				
+				arrayWithAnswers.push(obj); 
+			}
+			//not-slider
+			if (qArr[prop].answers_type == "4") 
+			{ 
+				resultsOfNotSliderValidation[prop] = $("input[name='" + qArr[prop].subtitle + "']").val();
+				var obj = new Object();
+				obj.subtitle = qArr[prop].subtitle;
+				obj.reference = prop;
+				
+				obj.value = resultsOfNotSliderValidation[prop];
+				
+				arrayWithAnswers.push(obj); 
+			}
+		}
+		
+		for (prop in resultsOfCheckBoxValidation) {
+			if (resultsOfCheckBoxValidation[prop] == 0) {
+				resultsOfCheckBoxValidationBool = false;
+			}
+		}
+		for (prop in resultsOfRadioBoxValidation) {
+			if (resultsOfRadioBoxValidation[prop] == 0) {
+				resultsOfRadioBoxValidationBool = false;
+			}
+		}
+		for (prop in resultsOfTextAreaValidation) {
+			if (resultsOfTextAreaValidation[prop] == "") {
+				resultsOfTextAreaValidationBool = false;
+			}
+		}
+		for (prop in resultsOfNotSliderValidation) {
+			if (resultsOfNotSliderValidation[prop] == "") {
+				resultsOfNotSliderValidationBool = false;
+			}
+		}
+		
+		$().toastmessage({sticky : true, position: 'middle-center'});
+		
+		if (resultsOfCheckBoxValidationBool && resultsOfRadioBoxValidationBool && resultsOfTextAreaValidationBool && resultsOfNotSliderValidationBool) {
+			console.log(arrayWithAnswers);
+			$().toastmessage('showSuccessToast', 'Спасибо за Ваше мнение!');
+		} else {
+			$().toastmessage('showWarningToast', 'Пожалуйста, заполните все поля анкеты.');
+		}
+		/* alert(resultsOfCheckBoxValidationBool);
+		alert(resultsOfRadioBoxValidationBool);
+		alert(resultsOfTextAreaValidationBool);
+		alert(resultsOfNotSliderValidationBool); */
+	}
 }]);
+
+app.filter('orderObjectBy', function(){
+ return function(input, attribute) {
+    if (!angular.isObject(input)) return input;
+
+    var array = [];
+    for(var objectKey in input) {
+        array.push(input[objectKey]);
+    }
+
+    array.sort(function(a, b){
+        a = parseInt(a[attribute]);
+        b = parseInt(b[attribute]);
+        return a - b;
+    });
+    return array;
+ }
+});

@@ -3,39 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Обратная связь</title>
+	<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	
 	<link href="css/main.css" rel="stylesheet" />
+	<link href="css/jquery.toastmessage.css" rel="stylesheet" />
 	<script src="js/lib/angular.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jquery.toastmessage.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body ng-app="TabachkovResume">
-
-<!-- <div class="main" ng-controller="MainController">
-	<div class="header-wrapper">	
-		<div class="header">
-			<h1>{{ dataFromJson.title }}</h1>
-		</div>
-	</div>
-	
-</div> -->
-<div class="container" ng-controller="MainController">
-		<div class="header">
-			<div class="title">{{ dataFromJson.title }}</div>
-			
-		</div>
-		<div class="wrapper">
-			<div class="question-block" ng-repeat="question in questions">
-				<div class="question-title"> {{ question.title }} </div>
-				<div class="question-subtitle"> {{ question.subtitle }} </div>
-				<div class="question-answers-type"> {{ question.answers_type }} </div>
-				<div class="question-answers"> {{ question.answers }} </div>
-				<div class="question-comment"> {{ question.comment }} </div>
-				<div class="question-order"> {{ question.order }} </div>
+	<form name="resumeForm">
+		<div class="container" ng-controller="MainController">
+			<div class="header">
+				<div class="title">{{ dataFromJson.title }}</div>			
+			</div>
+			<div class="wrapper">
+				<div class="question-block" ng-repeat="question in questions | orderObjectBy:'order'">
+					<div class="question-title"> {{ question.title }} </div>
+					<div class="question-subtitle"> {{ question.subtitle }} </div>
+					<div class="question-answers" ng-if="question.answers_type == '0'" ng-repeat="answer in question.answers"> 
+						<label><input type="checkbox" name="{{ question.subtitle }}" value="{{ answer }}" /> {{ answer }} </label>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '1'" ng-repeat="answer in question.answers"> 
+						<label><input type="radio" name="{{ question.subtitle }}" value="{{ answer }}" /> {{ answer }} </label>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '2'"> 
+						<select name="{{ question.subtitle }}">
+							<option ng-repeat="answer in question.answers"> {{ answer }} </option>
+						</select>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '3'"> 
+						<textarea rows="10" cols="45" name="{{ question.subtitle }}" maxlength="500"></textarea>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '4'"> 
+						<input class="not-slider" type="text" name="{{ question.subtitle }}" placeholder="Ваш ответ" />
+					</div>
+					<div class="question-comment" ng-if="question.comment == '0'"> 
+						<input type="text" placeholder="Введите ваш комментарий" />
+					</div>
+				</div>
+				<div class="block-button">
+					<input type="submit" class="btn" ng-click="checkData()">
+				</div> 
 			</div>
 		</div>
-	</div>
-
-
+	</form>
+		
 	<!-- Modules -->
     <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 
@@ -44,8 +58,6 @@
 
     <!-- Services -->
     <script src="js/services/resume.js"></script>
-
-    <!-- Directives -->
 
 </body>
 </html>
