@@ -19,6 +19,9 @@ app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
 		//not-slider
 		var resultsOfNotSliderValidation = [];
 		var resultsOfNotSliderValidationBool = true;
+		//comment
+		var resultsOfCommentValidation = [];
+		var resultsOfCommentValidationBool = true;
 		
 		var arrayWithAnswers = [];
 
@@ -91,6 +94,11 @@ app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
 				
 				arrayWithAnswers.push(obj); 
 			}
+			//comment
+			if (qArr[prop].comment == "0") 
+			{ 
+				resultsOfCommentValidation[prop] = $("input[class='comment']").val(); 
+			}
 		}
 		
 		for (prop in resultsOfCheckBoxValidation) {
@@ -113,19 +121,20 @@ app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
 				resultsOfNotSliderValidationBool = false;
 			}
 		}
+		for (prop in resultsOfCommentValidation) {
+			if (resultsOfCommentValidation[prop] == "") {
+				resultsOfCommentValidationBool = false;
+			}
+		}
 		
 		$().toastmessage({sticky : true, position: 'middle-center'});
 		
-		if (resultsOfCheckBoxValidationBool && resultsOfRadioBoxValidationBool && resultsOfTextAreaValidationBool && resultsOfNotSliderValidationBool) {
+		if (resultsOfCheckBoxValidationBool && resultsOfRadioBoxValidationBool && resultsOfTextAreaValidationBool && resultsOfNotSliderValidationBool && resultsOfCommentValidationBool) {
 			console.log(arrayWithAnswers);
 			$().toastmessage('showSuccessToast', 'Спасибо за Ваше мнение!');
 		} else {
 			$().toastmessage('showWarningToast', 'Пожалуйста, заполните все поля анкеты.');
 		}
-		/* alert(resultsOfCheckBoxValidationBool);
-		alert(resultsOfRadioBoxValidationBool);
-		alert(resultsOfTextAreaValidationBool);
-		alert(resultsOfNotSliderValidationBool); */
 	}
 }]);
 
