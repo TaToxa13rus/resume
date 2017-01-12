@@ -10,10 +10,11 @@
 	<script src="js/lib/angular.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/lib/jquery.toastmessage.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/garlic.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body ng-app="TabachkovResume">
-	<form name="resumeForm">
+	<form data-persist="garlic" data-destroy="false" name="resumeForm">
 		<div class="container" ng-controller="MainController">
 			<div class="header">
 				<div class="title">{{ dataFromJson.title }}</div>			
@@ -39,8 +40,8 @@
 					<div class="question-answers" ng-if="question.answers_type == '4'"> 
 						<input class="not-slider" type="text" name="{{ question.subtitle }}" placeholder="Ваш ответ" />
 					</div>
-					<div class="question-comment" ng-if="question.comment == '0'"> 
-						<input class="comment" type="text" placeholder="Введите ваш комментарий" />
+					<div class="question-comment" ng-if="question.comment == '0' && question.answers_type != '4'"> 
+						<input class="comment" type="text" name="{{ question.subtitle }}" placeholder="Введите ваш комментарий" />
 					</div>
 				</div>
 				<div class="block-button">

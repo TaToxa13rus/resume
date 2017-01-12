@@ -65,9 +65,11 @@ body {
 }
 .not-slider {
 	padding: 5px 10px;
+	width:200px;
 }
 .question-comment input {
     padding: 5px 10px;
+	width:200px;
 }
 .question-order {
 	font-size: 30px;

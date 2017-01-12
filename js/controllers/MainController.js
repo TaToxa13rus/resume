@@ -131,10 +131,18 @@ app.controller('MainController', ['$scope', 'resume', function($scope, resume) {
 		
 		if (resultsOfCheckBoxValidationBool && resultsOfRadioBoxValidationBool && resultsOfTextAreaValidationBool && resultsOfNotSliderValidationBool && resultsOfCommentValidationBool) {
 			console.log(arrayWithAnswers);
+			resetFormFields ();
 			$().toastmessage('showSuccessToast', 'Спасибо за Ваше мнение!');
 		} else {
 			$().toastmessage('showWarningToast', 'Пожалуйста, заполните все поля анкеты.');
 		}
+	}
+	
+	function resetFormFields () {
+		$('form input[type=\'radio\']').removeAttr('checked');
+		$('form input[type=\'checkbox\']').removeAttr('checked');
+		$('form input[type=\'text\']').val('');
+		$('form textarea').val('');
 	}
 }]);
 
