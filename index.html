@@ -41,7 +41,7 @@
 						<input class="not-slider" type="text" name="{{ question.subtitle }}" placeholder="Ваш ответ" />
 					</div>
 					<div class="question-comment" ng-if="question.comment == '0' && question.answers_type != '4'"> 
-						<input class="comment" type="text" name="{{ question.subtitle }}" placeholder="Введите ваш комментарий" />
+						<input class="comment" type="text" name="{{ question.subtitle }}{{ question.comment }}" placeholder="Введите ваш комментарий" />
 					</div>
 				</div>
 				<div class="block-button">
