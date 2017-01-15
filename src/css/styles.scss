@@ -1,0 +1,151 @@
+@mixin hover-cursor($cursor) {
+   &:hover{
+       cursor: $cursor;
+   }
+}
+
+@mixin fonts($font-size, $font-weight, $font-color) {
+	font-size: $font-size;
+    font-weight: $font-weight;
+	color: $font-color;
+}
+
+@mixin box-shadow($params) {
+	-webkit-box-shadow: $params;
+	-moz-box-shadow: $params;
+    box-shadow: $params;
+}
+
+$body-color: rgb(237, 231, 246);
+$font-settings: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+$header-color: rgb(103, 58, 183);
+$header-height: 120px;
+$header-mobile-height: 90px;
+$white-color: rgba(255, 255, 255, 1);
+$input-width: 200px;
+$textarea-height: 100px;
+$input-paddings: 5px 10px;
+$blocks-margin: 48px;
+$lines-margin: 5px;
+$default-box-shadow: 1px 1px 1px #999;
+$nice-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
+$mobile-padding: 18px;
+
+body {
+	background-color: $body-color;
+	margin: 0;
+	font-family: $font-settings;
+}
+
+.header {
+	background-color: $header-color;
+	position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: $header-height;
+}
+.title {
+	@include fonts(40px, bold, $white-color);
+	text-align: center;
+	line-height: $header-height; 
+	text-shadow: 0.1em 0.1em 0.2em #333;
+}
+.container {
+	width: 100%;	
+}
+.wrapper {
+	margin: $header-height auto;
+    padding: $blocks-margin;
+    width: 770px;
+	background-color: $white-color;
+	@include box-shadow($nice-shadow);
+}
+
+.question-block {
+	margin-bottom: $blocks-margin;
+}
+.question-title {
+   @include fonts(20px, bold, rgb(103, 58, 183));
+   margin-bottom: $lines-margin;
+}
+.question-subtitle {
+   @include fonts(16px, bold, rgb(16, 130, 69));
+   margin-bottom: $lines-margin;
+}
+.question-answers {
+   @include fonts(14px, normal, black);
+   margin-bottom: $lines-margin;
+   
+    select {
+		background-color: #F5F5F5;
+		padding: $input-paddings;
+		@include box-shadow($default-box-shadow);
+		@include fonts(14px, normal, black);
+	}
+	textarea {
+		padding: $input-paddings;
+		width: $input-width;
+		height: $textarea-height;
+		@include box-shadow($default-box-shadow);
+		@include fonts(14px, normal, black);
+	}
+	.not-slider {
+		padding: $input-paddings;
+		width: $input-width;
+		@include fonts(14px, normal, black);
+	}
+}
+.question-comment input {
+    padding: $input-paddings;
+	width: $input-width;
+}
+
+.block-button {
+	text-align: center;
+	.btn {
+		color: #fff;
+		background-color: #0275d8;
+		border-color: #0275d8;
+		display: inline-block;
+		font-weight: 400;
+		line-height: 1.25;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		border: 1px solid transparent;
+		padding: .5rem 1rem;
+		font-size: 1rem;
+		border-radius: .25rem;
+		-webkit-transition: all .2s ease-in-out;
+		-o-transition: all .2s ease-in-out;
+		transition: all .2s ease-in-out;
+		@include hover-cursor(pointer);
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.wrapper {
+		width: 80%;
+		padding: 28px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.header {
+		height: $header-mobile-height;		
+	}
+	.title {
+		@include fonts(32px, bold, $white-color);
+		line-height: $header-mobile-height;
+	}
+	.wrapper {
+		width: 80%;
+		padding: 18px;
+		margin: $header-mobile-height auto;
+	}
+}

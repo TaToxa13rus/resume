@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1">
+    <title>Обратная связь</title>
+	<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	
+	<link href="css/styles.css" rel="stylesheet" />
+	<link href="css/jquery.toastmessage.css" rel="stylesheet" />
+	<script src="lib/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/jquery.toastmessage.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/garlic.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body ng-app="TabachkovResume">
+	<form data-persist="garlic" data-destroy="false" name="resumeForm">
+		<div class="container" ng-controller="MainController">
+			<div class="header">
+				<div class="title">{{ dataFromJson.title }}</div>			
+			</div>
+			<div class="wrapper">
+				<div class="question-block" ng-repeat="question in questions | orderObjectBy:'order'">
+					<div class="question-title"> {{ question.title }} </div>
+					<div class="question-subtitle"> {{ question.subtitle }} </div>
+					<div class="question-answers" ng-if="question.answers_type == '0'" ng-repeat="answer in question.answers"> 
+						<label><input type="checkbox" name="{{ question.subtitle }}" value="{{ answer }}" /> {{ answer }} </label>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '1'" ng-repeat="answer in question.answers"> 
+						<label><input type="radio" name="{{ question.subtitle }}" value="{{ answer }}" /> {{ answer }} </label>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '2'"> 
+						<select name="{{ question.subtitle }}">
+							<option ng-repeat="answer in question.answers"> {{ answer }} </option>
+						</select>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '3'"> 
+						<textarea name="{{ question.subtitle }}" maxlength="500"></textarea>
+					</div>
+					<div class="question-answers" ng-if="question.answers_type == '4'"> 
+						<input class="not-slider" type="text" name="{{ question.subtitle }}" placeholder="Ваш ответ" />
+					</div>
+					<div class="question-comment" ng-if="question.comment == '0' && question.answers_type != '4'"> 
+						<input class="comment" type="text" name="{{ question.subtitle }}{{ question.comment }}" placeholder="Введите ваш комментарий" />
+					</div>
+				</div>
+				<div class="block-button">
+					<input type="submit" class="btn" ng-controller="CheckData" ng-click="checkData()">
+				</div> 
+			</div>
+		</div>
+	</form>
+		
+	<!-- Modules -->
+    <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+
+   <!--  
+    <script src="js/controllers/MainController.js"></script>
+	<script src="js/controllers/CheckData.js"></script>
+
+    
+    <script src="js/services/resume.js"></script>
+	
+	 
+    <script src="js/filters/OrderFilter.js"></script> -->
+
+</body>
+</html>
