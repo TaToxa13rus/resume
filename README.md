@@ -1,2 +1,1 @@
-npm install node-static
-node server.js
+type gulp in cmd for running app
